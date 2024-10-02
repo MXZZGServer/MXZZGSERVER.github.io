@@ -68,7 +68,8 @@ body, html {
     width: 100%;
     height: 100vh; /* 让轮播图占满整个视口高度 */
     overflow: hidden;
-    margin-top: 50px; /* 给导航栏留出空间 */
+    /* margin-top: 50px; 给导航栏留出空间 */
+    display: block;
 }
 
 .slides {
@@ -77,15 +78,58 @@ body, html {
     transition: transform 0.5s ease-in-out;
 }
 
-.slides img {
+.slide {
+    position: relative;
+    width: 100%;
+}
+
+.slide img {
     width: 100%;
     height: 100vh; /* 图片占据整个视口高度 */
     object-fit: cover; /* 保持图片比例并裁剪图片以填充整个视口 */
+    filter: brightness(50%);
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3); /* 黑色半透明遮罩 */
+    z-index: 1; /* 遮罩在文本下方 */
+}
+
+.slide-texts {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.slide-texts h1 {
+    text-align: center;
+    color: white;
+    font-size: 3rem;
+}
+
+.slide-texts h2 {
+    text-align: center;
+    color: white;
+    font-size: 2rem;
+}
+
+.slide-texts p {
+    margin-top: 20px;
+    text-align: center;
+    color: white;
+    font-size: 1.25rem;
 }
 
 .indicators {
     position: absolute;
-    bottom: 10px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -100,6 +144,7 @@ body, html {
     cursor: pointer;
     opacity: 0.5; /* 默认不活跃状态 */
     transition: opacity 0.3s;
+    z-index: 3;
 }
 
 .indicator.active {
@@ -113,7 +158,7 @@ body, html {
     margin-top: 50px; /* 保证不会被导航栏遮挡 */
 }
 
-h2 {
+section h2 {
     margin-bottom: 20px;
-    font-size: 2rem;
+    font-size: 2.5rem;
 }

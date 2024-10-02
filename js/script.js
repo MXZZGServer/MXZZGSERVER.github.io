@@ -1,8 +1,9 @@
 // 获取所有的图片和 slides 容器
 const slides = document.querySelector('.slides');
-const images = document.querySelectorAll('.slides img');
+const images = document.querySelectorAll('.slide img');
 const totalSlides = images.length;
 const indicatorContainer = document.querySelector('.indicators');
+let intervalID
 
 // 动态设置 slides 容器的宽度
 slides.style.width = `${totalSlides * 100}%`;
@@ -11,7 +12,14 @@ slides.style.width = `${totalSlides * 100}%`;
 for (let i = 0; i < totalSlides; i++) {
     const indicator = document.createElement('span');
     indicator.classList.add('indicator');
-    indicator.addEventListener('click', () => showSlide(i)); // 点击indicator切换到相应的图片
+    indicator.addEventListener('click', () => {
+        showSlide(i);
+        clearInterval(intervalID);
+        intervalID = setInterval(() => {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            showSlide(currentIndex);
+        }, 3000);
+    }); // 点击indicator切换到相应的图片
     indicatorContainer.appendChild(indicator);
 }
 
@@ -40,7 +48,7 @@ function updateActiveIndicator() {
 }
 
 // 自动播放轮播图
-setInterval(() => {
+intervalID = setInterval(() => {
     currentIndex = (currentIndex + 1) % totalSlides;
     showSlide(currentIndex);
 }, 3000);
